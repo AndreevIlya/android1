@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Homework</string>
-    <string name="title">Погода</string>
+    <string name="title">Weather</string>
+    <string name="morning">Morning</string>
+    <string name="afternoon">Afternoon</string>
+    <string name="evening">Evening</string>
+    <string name="night">Night</string>
+    <string name="clear">Clear</string>
+    <string name="overcast">Overcast</string>
+    <string name="cloudy">Cloudy</string>
+    <string name="snow">Snowy</string>
+    <string name="light_rain">Light rain</string>
+    <string name="rain">Rainy</string>
+    <string name="heavy_rain">Heavy rain</string>
 </resources>
