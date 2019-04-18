@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
         TableLayout weatherTable = findViewById(R.id.weather_table);
 
         String[] dataTypes = {WeatherOptions.Temperature.getName(),WeatherOptions.Precipitations.getName()};
-        WeatherData.createWeekWeather(this, weatherTable, dataTypes);
+        WeatherTableBuilder tableBuilder = new WeatherTableBuilder(this,weatherTable,dataTypes);
+        tableBuilder.createWeekWeather();
         addOptionsCheckboxes();
         Button button = findViewById(R.id.submitButton);
         button.setOnClickListener(new View.OnClickListener(){

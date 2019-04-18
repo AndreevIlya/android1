@@ -3,7 +3,7 @@ package com.homework;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class StoreData implements Serializable{
+class StoreData implements Serializable{
     private String city;
     private ArrayList<String> weatherOptions;
     private String duration;
@@ -15,20 +15,20 @@ public class StoreData implements Serializable{
         this.weatherOptions = weatherOptions;
     }
 
-    public static StoreData getInstance(String city,ArrayList<String> weatherOptions,String duration){
+    static StoreData getInstance(String city,ArrayList<String> weatherOptions,String duration){
         instance = new StoreData(city,weatherOptions,duration);
         return instance;
     }
 
-    public String getCity() {
+    String getCity() {
         return city;
     }
 
-    public ArrayList<String> getWeatherOptions() {
+    ArrayList<String> getWeatherOptions() {
         return weatherOptions;
     }
 
-    public String getDuration() {
+    String getDuration() {
         return duration;
     }
 }
