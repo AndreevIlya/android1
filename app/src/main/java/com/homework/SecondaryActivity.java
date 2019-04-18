@@ -24,9 +24,9 @@ public class SecondaryActivity extends AppCompatActivity {
             ArrayList<String> weatherOptions = data.getWeatherOptions();
             TableLayout table = findViewById(R.id.weather_table);
             WeatherTableBuilder tableBuilder = new WeatherTableBuilder(this, table, weatherOptions.toArray(new String[0]));
-            if (duration.equals("today")) {
+            if (duration.equals(getResources().getString(R.string.today))) {
                 tableBuilder.createTodayWeather();
-            } else if (duration.equals("week")) {
+            } else if (duration.equals(getResources().getString(R.string.week))) {
                 tableBuilder.createWeekWeather();
             }
         } catch (NullPointerException e) {

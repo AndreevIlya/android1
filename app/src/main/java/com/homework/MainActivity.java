@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         TableLayout weatherTable = findViewById(R.id.weather_table);
 
-        String[] dataTypes = {WeatherOptions.Temperature.getName(),WeatherOptions.Precipitations.getName()};
+        String[] dataTypes = {this.getResources().getString(WeatherOptions.Temperature.getName()),
+                this.getResources().getString(WeatherOptions.Precipitations.getName())};
         WeatherTableBuilder tableBuilder = new WeatherTableBuilder(this,weatherTable,dataTypes);
         tableBuilder.createWeekWeather();
         addOptionsCheckboxes();
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void addOptionsCheckboxes(){
         LinearLayout weatherOptionsCheckboxes = findViewById(R.id.weatherOptionsCheckboxes);
-        String[] allWeatherOptions = WeatherOptions.getAllWeatherOptions();
+        String[] allWeatherOptions = WeatherOptions.getAllWeatherOptions(this);
         for(String option : allWeatherOptions){
             CheckBox checkbox = new CheckBox(this);
             checkbox.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -71,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void onDurationChosen(View view){
         if(((RadioButton) view).isChecked()){
-            duration = view.getId() == R.id.today ? "today" : "week";
+            duration = view.getId() == R.id.today ?
+                    getResources().getString(R.string.today) :
+                    getResources().getString(R.string.week);
         }
     }
 

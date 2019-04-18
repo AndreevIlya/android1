@@ -26,7 +26,7 @@ class WeatherTableBuilder {
 
     private TableRow createWeatherRow(String date){
         TableRow weatherRow = new TableRow(activity);
-        WeatherDataRetriever weatherDataRetriever = new WeatherDataRetriever();
+        WeatherDataRetriever weatherDataRetriever = new WeatherDataRetriever(activity);
         List<TextView> fields = new ArrayList<>();
         TextView dateTextView = new TextView(activity);
         dateTextView.setText(date);
@@ -66,7 +66,10 @@ class WeatherTableBuilder {
     void createTodayWeather(){
         table.addView(createTitleRow());
         String dateT = dateToday.get(Calendar.DAY_OF_MONTH) +"."+ (dateToday.get(Calendar.MONTH) + 1) + "." + dateToday.get(Calendar.YEAR);
-        String[] timesOfDay = {"Morning","Afternoon","Evening","Night"};
+        String[] timesOfDay = {activity.getResources().getString(R.string.morning),
+                activity.getResources().getString(R.string.afternoon),
+                activity.getResources().getString(R.string.evening),
+                activity.getResources().getString(R.string.night)};
         for(String time : timesOfDay){
             String date = dateT + " " + time;
             table.addView(createWeatherRow(date));
