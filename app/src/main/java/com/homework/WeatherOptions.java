@@ -1,28 +1,27 @@
 package com.homework;
 
-import android.app.Activity;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public enum WeatherOptions {
-    Temperature(R.string.temperature),Precipitations(R.string.precipitations),Humidity(R.string.humidity),
-    Wind_speed(R.string.wind_speed),Pressure(R.string.pressure);
-    private int nameId;
+    Temperature(R.drawable.temperature),Precipitations(R.drawable.weather),
+    Humidity(R.drawable.humidity),Wind_speed(R.drawable.wind),
+    Pressure(R.drawable.pressure);
+    private int id;
 
-    WeatherOptions(int name){
-        this.nameId = name;
+    WeatherOptions(int id){
+        this.id = id;
     }
 
-    public int getName() {
-        return nameId;
+    public int getID() {
+        return id;
     }
 
-    static String[] getAllWeatherOptions(Activity activity){
-        List<String> allOptions = new ArrayList<>();
+    static Integer[] getAllWeatherOptions(){
+        List<Integer> allOptions = new ArrayList<>();
         for(WeatherOptions option : WeatherOptions.values()){
-            allOptions.add(activity.getResources().getString(option.getName()));
+            allOptions.add(option.getID());
         }
-        return allOptions.toArray(new String[0]);
+        return allOptions.toArray(new Integer[0]);
     }
 }

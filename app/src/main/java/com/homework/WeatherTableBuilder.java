@@ -1,23 +1,21 @@
 package com.homework;
 
 import android.app.Activity;
-import android.view.Gravity;
-import android.view.ViewGroup;
+import android.text.Html;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 class WeatherTableBuilder {
     private Activity activity;
     private Calendar dateToday;
     private TableLayout table;
-    private String[] dataTypes;
+    private Integer[] dataTypes;
 
-    WeatherTableBuilder(Activity activity,TableLayout table,String[] data){
+    WeatherTableBuilder(Activity activity,TableLayout table,Integer[] data){
         this.activity = activity;
         this.dateToday = Calendar.getInstance();
         this.table = table;
@@ -27,38 +25,33 @@ class WeatherTableBuilder {
     private TableRow createWeatherRow(String date){
         TableRow weatherRow = new TableRow(activity);
         WeatherDataRetriever weatherDataRetriever = new WeatherDataRetriever(activity);
-        List<TextView> fields = new ArrayList<>();
         TextView dateTextView = new TextView(activity);
         dateTextView.setText(date);
-        fields.add(dateTextView);
-        for(String dataType : dataTypes){
-            TextView weatherDatum = new TextView(activity);
-            weatherDatum.setText(weatherDataRetriever.getWeatherData(dataType));
-            fields.add(weatherDatum);
-        }
-        for(TextView field : fields){
-            field.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
-            field.setGravity(Gravity.START);
-            weatherRow.addView(field);
+        weatherRow.addView(dateTextView);
+        for(Integer dataType : dataTypes){
+            if (dataType.equals(WeatherOptions.Precipitations.getID())) {
+                ImageView weatherDatum = new ImageView(activity,null,R.style.images);
+                weatherDatum.setImageDrawable(weatherDataRetriever.getWeatherImage(activity));
+                weatherRow.addView(weatherDatum);
+            } else {
+                TextView weatherDatum = new TextView(activity,null,R.style.weather_fields);
+                Log.i("INFO",activity.getResources().getString(dataType));
+                weatherDatum.setText(weatherDataRetriever.getWeatherData(dataType));
+                weatherRow.addView(weatherDatum);
+            }
         }
         return weatherRow;
     }
 
     private TableRow createTitleRow(){
         TableRow titleRow = new TableRow(activity);
-        List<TextView> fields = new ArrayList<>();
-        TextView dateTextView = new TextView(activity);
-        dateTextView.setText(R.string.date);
-        fields.add(dateTextView);
-        for(String dataType : dataTypes){
-            TextView weatherDatum = new TextView(activity);
-            weatherDatum.setText(dataType);
-            fields.add(weatherDatum);
-        }
-        for(TextView field : fields){
-            field.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
-            field.setGravity(Gravity.START);
-            titleRow.addView(field);
+        ImageView dateTextView = new ImageView(activity);
+        dateTextView.setImageDrawable(activity.getResources().getDrawable(R.drawable.date));
+        titleRow.addView(dateTextView);
+        for(Integer dataType : dataTypes){
+            ImageView weatherDatum = new ImageView(activity,null,R.style.images);
+            weatherDatum.setImageDrawable(activity.getResources().getDrawable(dataType));
+            titleRow.addView(weatherDatum);
         }
         return titleRow;
     }

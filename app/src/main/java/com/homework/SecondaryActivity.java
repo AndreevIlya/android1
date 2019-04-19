@@ -21,9 +21,9 @@ public class SecondaryActivity extends AppCompatActivity {
             viewTitle.setText(String.format(getResources().getString(R.string.title_with_city), city));
 
             String duration = data.getDuration();
-            ArrayList<String> weatherOptions = data.getWeatherOptions();
+            ArrayList<Integer> weatherOptions = data.getWeatherOptions();
             TableLayout table = findViewById(R.id.weather_table);
-            WeatherTableBuilder tableBuilder = new WeatherTableBuilder(this, table, weatherOptions.toArray(new String[0]));
+            WeatherTableBuilder tableBuilder = new WeatherTableBuilder(this, table, weatherOptions.toArray(new Integer[0]));
             if (duration.equals(getResources().getString(R.string.today))) {
                 tableBuilder.createTodayWeather();
             } else if (duration.equals(getResources().getString(R.string.week))) {

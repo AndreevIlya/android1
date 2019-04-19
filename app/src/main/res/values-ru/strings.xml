@@ -10,7 +10,7 @@
     <string name="overcast">Сплошная облачность</string>
     <string name="cloudy">облачно</string>
     <string name="snow">Снег</string>
-    <string name="light_rain">легкий дождь</string>
+    <string name="light_rain">Легкий дождь</string>
     <string name="rain">Дождь</string>
     <string name="heavy_rain">Ливень</string>
     <string name="enter_city">Выберите город:</string>

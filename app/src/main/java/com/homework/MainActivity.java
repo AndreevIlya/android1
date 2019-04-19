@@ -3,21 +3,18 @@ package com.homework;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<String> weatherOptions = new ArrayList<>();
+    private ArrayList<Integer> weatherOptions = new ArrayList<>();
     private String duration = ""; //To make it not NULL
 
     @Override
@@ -26,11 +23,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         TableLayout weatherTable = findViewById(R.id.weather_table);
 
-        String[] dataTypes = {this.getResources().getString(WeatherOptions.Temperature.getName()),
-                this.getResources().getString(WeatherOptions.Precipitations.getName())};
+        Integer[] dataTypes = {WeatherOptions.Temperature.getID(),WeatherOptions.Precipitations.getID()};
         WeatherTableBuilder tableBuilder = new WeatherTableBuilder(this,weatherTable,dataTypes);
         tableBuilder.createWeekWeather();
-        addOptionsCheckboxes();
+        addWeatherOptions();
         Button button = findViewById(R.id.submitButton);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -46,14 +42,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void addOptionsCheckboxes(){
+    private void addWeatherOptions(){
         LinearLayout weatherOptionsCheckboxes = findViewById(R.id.weatherOptionsCheckboxes);
-        String[] allWeatherOptions = WeatherOptions.getAllWeatherOptions(this);
-        for(String option : allWeatherOptions){
-            CheckBox checkbox = new CheckBox(this);
-            checkbox.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
-            checkbox.setGravity(Gravity.START);
-            checkbox.setText(option);
+        Integer[] allWeatherOptions = WeatherOptions.getAllWeatherOptions();
+        for(Integer option : allWeatherOptions){
+            CheckBox checkbox = new CheckBox(this,null,R.style.weather_fields);
+            checkbox.setId(option);
+            checkbox.setText(this.getResources().getString(option));
             checkbox.setOnClickListener(new CheckboxListener());
             weatherOptionsCheckboxes.addView(checkbox);
         }
@@ -63,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             if(((CheckBox) view).isChecked()){
-                weatherOptions.add(((CheckBox) view).getText().toString());
+                weatherOptions.add((view).getId());
             }else{
-                weatherOptions.remove(((CheckBox) view).getText().toString());
+                weatherOptions.remove((view).getId());
             }
         }
     }
