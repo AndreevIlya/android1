@@ -12,10 +12,13 @@ import android.widget.RadioButton;
 import android.widget.TableLayout;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayList<Integer> weatherOptions = new ArrayList<>();
     private String duration = ""; //To make it not NULL
+    private Map<Integer,Integer> opt = initOptions();//Temporary
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +49,10 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout weatherOptionsCheckboxes = findViewById(R.id.weatherOptionsCheckboxes);
         Integer[] allWeatherOptions = WeatherOptions.getAllWeatherOptions();
         for(Integer option : allWeatherOptions){
-            CheckBox checkbox = new CheckBox(this,null,R.style.weather_fields);
+            CheckBox checkbox = new CheckBox(this);
+            //,null,R.style.weather_fields
             checkbox.setId(option);
-            checkbox.setText(this.getResources().getString(option));
+            checkbox.setText(this.getResources().getString(opt.get(option)));
             checkbox.setOnClickListener(new CheckboxListener());
             weatherOptionsCheckboxes.addView(checkbox);
         }
@@ -73,4 +77,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private Map<Integer,Integer> initOptions(){
+        opt = new HashMap<>();
+        opt.put(R.drawable.humidity,R.string.humidity);
+        opt.put(R.drawable.temperature,R.string.temperature);
+        opt.put(R.drawable.weather,R.string.precipitations);
+        opt.put(R.drawable.wind,R.string.wind_speed);
+        opt.put(R.drawable.pressure,R.string.pressure);
+        return opt;
+    }
 }

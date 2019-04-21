@@ -45,7 +45,7 @@ class WeatherTableBuilder {
 
     private TableRow createTitleRow(){
         TableRow titleRow = new TableRow(activity);
-        ImageView dateTextView = new ImageView(activity);
+        ImageView dateTextView = new ImageView(activity,null,R.style.images);
         dateTextView.setImageDrawable(activity.getResources().getDrawable(R.drawable.date));
         titleRow.addView(dateTextView);
         for(Integer dataType : dataTypes){
