@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Погодное приложение</string>
+    <string name="title">Погода в вашем населенном пункте</string>
+    <string name="morning">Утро</string>
+    <string name="afternoon">День</string>
+    <string name="evening">Вечер</string>
+    <string name="night">Ночь</string>
+    <string name="clear">Ясно</string>
+    <string name="overcast">Сплошная облачность</string>
+    <string name="cloudy">облачно</string>
+    <string name="snow">Снег</string>
+    <string name="light_rain">Легкий дождь</string>
+    <string name="rain">Дождь</string>
+    <string name="heavy_rain">Ливень</string>
+    <string name="enter_city">Выберите город:</string>
+    <string name="degree">" ℃"</string>
+    <string name="percent">" \%"</string>
+    <string name="velocity">" м/с"</string>
+    <string name="mmHg">" мм рт. ст."</string>
+    <string name="choose_weather_options">Выберите погодные параметры:</string>
+    <string name="choose_duration">Выберите длительность прогноза:</string>
+    <string name="today">Сегодня</string>
+    <string name="week">Неделя</string>
+    <string name="submit">Отправить</string>
+    <string name="title_with_city">"Погода в %s"</string>
+    <string name="date">Дата</string>
+    <string name="temperature">Температура</string>
+    <string name="precipitations">Осадки</string>
+    <string name="humidity">Влажность</string>
+    <string name="pressure">Давление</string>
+    <string name="wind_speed">Скорость ветра</string>
+</resources>

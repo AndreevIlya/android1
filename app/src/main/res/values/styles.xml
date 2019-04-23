@@ -7,5 +7,17 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    
+    <style name="weather_fields">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">start</item>
+    </style>
+
+    <style name="images">
+        <item name="android:layout_width">40px</item>
+        <item name="android:layout_height">40px</item>
+        <item name="android:gravity">start</item>
+    </style>
 
 </resources>

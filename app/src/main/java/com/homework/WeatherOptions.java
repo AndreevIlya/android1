@@ -4,23 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum WeatherOptions {
-    Temperature("Temperature"),Precipitations("Precipitations"),Humidity("Humidity"),
-    Wind_speed("Wind speed"),Pressure("Pressure");
-    private String name;
+    Temperature(R.drawable.temperature),Precipitations(R.drawable.weather),
+    Humidity(R.drawable.humidity),Wind_speed(R.drawable.wind),
+    Pressure(R.drawable.pressure);
+    private int id;
 
-    WeatherOptions(String name){
-        this.name = name;
+    WeatherOptions(int id){
+        this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getID() {
+        return id;
     }
 
-    static String[] getAllWeatherOptions(){
-        List<String> allOptions = new ArrayList<>();
+    static Integer[] getAllWeatherOptions(){
+        List<Integer> allOptions = new ArrayList<>();
         for(WeatherOptions option : WeatherOptions.values()){
-            allOptions.add(option.getName());
+            allOptions.add(option.getID());
         }
-        return allOptions.toArray(new String[0]);
+        return allOptions.toArray(new Integer[0]);
     }
 }

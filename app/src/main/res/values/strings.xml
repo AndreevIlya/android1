@@ -13,6 +13,10 @@
     <string name="rain">Rainy</string>
     <string name="heavy_rain">Heavy rain</string>
     <string name="enter_city">Enter city:</string>
+    <string name="degree">" ℃"</string>
+    <string name="percent">" \%"</string>
+    <string name="velocity">" m/s"</string>
+    <string name="mmHg">" mm Hg"</string>
     <string name="choose_weather_options">Choose weather options:</string>
     <string name="choose_duration">Choose duration:</string>
     <string name="today">Today</string>
@@ -20,4 +24,9 @@
     <string name="submit">Submit</string>
     <string name="title_with_city">"Weather in %s"</string>
     <string name="date">"Date"</string>
+    <string name="temperature">"Temperature"</string>
+    <string name="precipitations">"Precipitations"</string>
+    <string name="humidity">"Humidity"</string>
+    <string name="pressure">"Pressure"</string>
+    <string name="wind_speed">"Wind speed"</string>
 </resources>
