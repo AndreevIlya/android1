@@ -2,5 +2,7 @@
     <string name="app_name">Activity and fragment life cycles</string>
     <string name="text1">Демонстрация жизненного цикла Activity</string>
     <string name="text2">TextView</string>
-    <string name="button">Button</string>
+    <string name="buttonOn">Turn fragment On</string>
+    <string name="buttonOff">Turn fragment Off</string>
+    <string name="fragment1">Fragment is ON</string>
 </resources>
