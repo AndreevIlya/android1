@@ -1,25 +1,26 @@
 package com.homework;
 
 import android.app.Activity;
-import android.text.Html;
 import android.util.Log;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import java.util.Calendar;
+import java.util.List;
 
-class WeatherTableBuilder {
+class WeatherBuilder {
     private Activity activity;
     private Calendar dateToday;
-    private TableLayout table;
-    private Integer[] dataTypes;
+    private List<Integer> dataTypes;
+    private TableLayout weatherTable;
 
-    WeatherTableBuilder(Activity activity,TableLayout table,Integer[] data){
+    WeatherBuilder(Activity activity, TableLayout table, List<Integer> data){
         this.activity = activity;
         this.dateToday = Calendar.getInstance();
-        this.table = table;
         this.dataTypes = data;
+        this.weatherTable = table;
     }
 
     private TableRow createWeatherRow(String date){
@@ -35,7 +36,7 @@ class WeatherTableBuilder {
                 weatherRow.addView(weatherDatum);
             } else {
                 TextView weatherDatum = new TextView(activity,null,R.style.weather_fields);
-                Log.i("INFO",activity.getResources().getString(dataType));
+                //Log.i("INFO",activity.getResources().getString(dataType));
                 weatherDatum.setText(weatherDataRetriever.getWeatherData(dataType));
                 weatherRow.addView(weatherDatum);
             }
@@ -57,7 +58,7 @@ class WeatherTableBuilder {
     }
 
     void createTodayWeather(){
-        table.addView(createTitleRow());
+        weatherTable.addView(createTitleRow());
         String dateT = dateToday.get(Calendar.DAY_OF_MONTH) +"."+ (dateToday.get(Calendar.MONTH) + 1) + "." + dateToday.get(Calendar.YEAR);
         String[] timesOfDay = {activity.getResources().getString(R.string.morning),
                 activity.getResources().getString(R.string.afternoon),
@@ -65,7 +66,7 @@ class WeatherTableBuilder {
                 activity.getResources().getString(R.string.night)};
         for(String time : timesOfDay){
             String date = dateT + " " + time;
-            table.addView(createWeatherRow(date));
+            weatherTable.addView(createWeatherRow(date));
         }
     }
 
@@ -75,7 +76,7 @@ class WeatherTableBuilder {
         for(int i = 1; i < 7; i++){
             dateToday.add(Calendar.DATE, 1);
             dateT = dateToday.get(Calendar.DAY_OF_MONTH) +"."+ (dateToday.get(Calendar.MONTH) + 1) + "." + dateToday.get(Calendar.YEAR);
-            table.addView(createWeatherRow(dateT));
+            weatherTable.addView(createWeatherRow(dateT));
         }
     }
 }

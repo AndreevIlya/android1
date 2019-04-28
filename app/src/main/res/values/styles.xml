@@ -8,16 +8,28 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     
-    <style name="weather_fields">
+    <style name="weather_fields" parent="@style/TextAppearance.AppCompat.Medium">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">start</item>
     </style>
 
-    <style name="images">
-        <item name="android:layout_width">40px</item>
-        <item name="android:layout_height">40px</item>
-        <item name="android:gravity">start</item>
+    <style name="title" parent="@style/weather_fields">
+        android:layout_width="match_parent"
+        android:layout_marginBottom="4dp"
+        android:gravity="center_horizontal"
+        android:textSize="18sp"
+    </style>
+
+    <style name="weather_table" parent="@style/Theme.AppCompat">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        android:layout_marginBottom="10dp"
+    </style>
+
+    <style name="images" parent="@style/Theme.AppCompat">
+        android:gravity="start"
     </style>
 
 </resources>
