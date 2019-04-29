@@ -2,28 +2,25 @@ package com.homework;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 class StoreData implements Serializable{
     private static String city;
-    private static List<Integer> weatherOptions;
+    private static Set<Integer> weatherOptions;
     private static String duration;
     private static StoreData instance;
 
-    private StoreData(String city,List<Integer> weatherOptions,String duration){
+    private StoreData(String city,Set<Integer> weatherOptions,String duration){
         StoreData.duration = duration;
         StoreData.city = city;
         StoreData.weatherOptions = weatherOptions;
     }
 
-    static StoreData getInstance(String city,List<Integer> weatherOptions,String duration){
-        instance = new StoreData(city,weatherOptions,duration);
-        return instance;
-    }
-
     static StoreData getSavedInstance(){
         if(instance == null)
-            instance = new StoreData(null,new ArrayList<Integer>(),null);
+            instance = new StoreData(null,new HashSet<Integer>(),null);
         return instance;
     }
 
@@ -31,7 +28,7 @@ class StoreData implements Serializable{
         return city;
     }
 
-    List<Integer> getWeatherOptions() {
+    Set<Integer> getWeatherOptions() {
         return weatherOptions;
     }
 
@@ -43,7 +40,7 @@ class StoreData implements Serializable{
 
     void setDuration(String duration){StoreData.duration = duration;}
 
-    void setWeatherOptions(List<Integer> weatherOptions){
+    void setWeatherOptions(Set<Integer> weatherOptions){
         StoreData.weatherOptions = weatherOptions;
     }
 

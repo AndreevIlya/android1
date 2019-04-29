@@ -1,22 +1,21 @@
 package com.homework;
 
 import android.app.Activity;
-import android.util.Log;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
 import java.util.Calendar;
-import java.util.List;
+import java.util.Set;
 
 class WeatherBuilder {
     private Activity activity;
     private Calendar dateToday;
-    private List<Integer> dataTypes;
+    private Set<Integer> dataTypes;
     private TableLayout weatherTable;
 
-    WeatherBuilder(Activity activity, TableLayout table, List<Integer> data){
+    WeatherBuilder(Activity activity, TableLayout table, Set<Integer> data){
         this.activity = activity;
         this.dateToday = Calendar.getInstance();
         this.dataTypes = data;

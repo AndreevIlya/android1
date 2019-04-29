@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,26 +13,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.TableLayout;
-import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 public class CityAndOptionsChooser extends Fragment {
-    private static StoreData data;
+    static StoreData data;
+    private WeatherInfoFragment infoFragment;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View fragmentContainer = inflater.inflate(R.layout.city_and_options, container, false);
         data = StoreData.getSavedInstance();
+        infoFragment = WeatherInfoFragment.create(data);
         addWeatherOptions(fragmentContainer);
         RadioButton rbToday = fragmentContainer.findViewById(R.id.today);
         rbToday.setOnClickListener(new View.OnClickListener(){
@@ -86,10 +82,8 @@ public class CityAndOptionsChooser extends Fragment {
                 @Override
                 public void onClick(View view) {
                     if(((CheckBox) view).isChecked()){
-                        Log.i("INFO","+");
                         data.getWeatherOptions().add(view.getId());
                     }else{
-                        Log.i("INFO","-");
                         data.getWeatherOptions().remove(view.getId());
                     }
                 }
@@ -119,10 +113,7 @@ public class CityAndOptionsChooser extends Fragment {
 
     private void showWeatherInCity(){
         if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE){
-            WeatherInfoFragment infoFragment = (WeatherInfoFragment) getFragmentManager().findFragmentById(R.id.weather_info);
-            Log.i("INFO","5"+infoFragment.getData().getCity());
-            if(!infoFragment.getData().areDataEqual(data)){
-                Log.i("INFO","6");
+            if(infoFragment.getData().areDataEqual(data)){//! removed because it's always true
                 infoFragment = WeatherInfoFragment.create(data);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.weather_info, infoFragment);
@@ -134,5 +125,6 @@ public class CityAndOptionsChooser extends Fragment {
             intent.putExtra("DATA",data);
             startActivity(intent);
         }
+        infoFragment = (WeatherInfoFragment) getFragmentManager().findFragmentById(R.id.weather_info);
     }
 }
