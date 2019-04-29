@@ -22,14 +22,12 @@ import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 public class CityAndOptionsChooser extends Fragment {
     static StoreData data;
-    private WeatherInfoFragment infoFragment;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View fragmentContainer = inflater.inflate(R.layout.city_and_options, container, false);
         data = StoreData.getSavedInstance();
-        infoFragment = WeatherInfoFragment.create(data);
         addWeatherOptions(fragmentContainer);
         RadioButton rbToday = fragmentContainer.findViewById(R.id.today);
         rbToday.setOnClickListener(new View.OnClickListener(){
@@ -50,9 +48,7 @@ public class CityAndOptionsChooser extends Fragment {
             @Override
             public void onClick(View v) {
                 data.setCity(((EditText) fragmentContainer.findViewById(R.id.cityRequested)).getText().toString());
-                Log.i("INFO","size: "+data.getWeatherOptions().size());
                 if(!data.getCity().isEmpty() && !data.getDuration().isEmpty() && data.getWeatherOptions().size() != 0){
-                    Log.i("INFO","4");
                     showWeatherInCity();
                 }
             }
@@ -113,8 +109,8 @@ public class CityAndOptionsChooser extends Fragment {
 
     private void showWeatherInCity(){
         if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE){
-            if(infoFragment.getData().areDataEqual(data)){//! removed because it's always true
-                infoFragment = WeatherInfoFragment.create(data);
+            if(StoreData.getPreviousInstance() == null || !StoreData.getPreviousInstance().areDataPreserved()){
+                WeatherInfoFragment infoFragment = new WeatherInfoFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.weather_info, infoFragment);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -125,6 +121,6 @@ public class CityAndOptionsChooser extends Fragment {
             intent.putExtra("DATA",data);
             startActivity(intent);
         }
-        infoFragment = (WeatherInfoFragment) getFragmentManager().findFragmentById(R.id.weather_info);
+        StoreData.setPreviousInstance();
     }
 }

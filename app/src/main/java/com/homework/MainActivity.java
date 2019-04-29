@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
             tableBuilder.createWeekWeather();
         }else{
             if(isNotInit) {
-                Fragment fragment = WeatherInfoFragment.create(data);
+                Fragment fragment = new WeatherInfoFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.add(R.id.weather_info, fragment);
                 fragmentTransaction.commit();

@@ -1,5 +1,12 @@
 package com.homework;
 
+import android.util.Log;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,21 +14,40 @@ import java.util.List;
 import java.util.Set;
 
 class StoreData implements Serializable{
-    private static String city;
-    private static Set<Integer> weatherOptions;
-    private static String duration;
+    private String city;
+    private Set<Integer> weatherOptions;
+    private String duration;
     private static StoreData instance;
+    private static StoreData previousInstance;
 
     private StoreData(String city,Set<Integer> weatherOptions,String duration){
-        StoreData.duration = duration;
-        StoreData.city = city;
-        StoreData.weatherOptions = weatherOptions;
+        this.duration = duration;
+        this.city = city;
+        this.weatherOptions = weatherOptions;
     }
 
     static StoreData getSavedInstance(){
         if(instance == null)
             instance = new StoreData(null,new HashSet<Integer>(),null);
         return instance;
+    }
+
+    static void setPreviousInstance(){
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream ous = new ObjectOutputStream(baos);
+            ous.writeObject(instance);
+            ous.close();
+            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            previousInstance = (StoreData) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            Log.e("ERROR","Cloning error in setPreviousInstance");
+        }
+    }
+
+    static StoreData getPreviousInstance(){
+        return previousInstance;
     }
 
     String getCity() {
@@ -36,18 +62,19 @@ class StoreData implements Serializable{
         return duration;
     }
 
-    void setCity(String city){StoreData.city = city;}
+    void setCity(String city){this.city = city;}
 
-    void setDuration(String duration){StoreData.duration = duration;}
+    void setDuration(String duration){this.duration = duration;}
 
     void setWeatherOptions(Set<Integer> weatherOptions){
-        StoreData.weatherOptions = weatherOptions;
+        this.weatherOptions = weatherOptions;
     }
 
-    boolean areDataEqual(StoreData data){
-        return city.equals(data.getCity()) &&
-                weatherOptions.containsAll(data.getWeatherOptions()) &&
-                data.getWeatherOptions().containsAll(weatherOptions) &&
-                duration.equals(data.getDuration());
+    boolean areDataPreserved(){
+        return previousInstance == null ||
+                instance.city.equals(previousInstance.city) &&
+                instance.weatherOptions.containsAll(previousInstance.weatherOptions) &&
+                previousInstance.weatherOptions.containsAll(instance.weatherOptions) &&
+                instance.duration.equals(previousInstance.duration);
     }
 }

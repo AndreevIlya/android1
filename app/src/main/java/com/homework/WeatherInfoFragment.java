@@ -23,7 +23,6 @@ public class WeatherInfoFragment extends Fragment {
         data = StoreData.getSavedInstance();
         String city = data.getCity() == null ? getResources().getString(R.string.your_location) : data.getCity();
         if(isInit){
-            Log.i("INFO","city: "+city);
             TextView viewTitle = weatherContainer.findViewById(R.id.title);
             viewTitle.setText(String.format(getResources().getString(R.string.title_in), city));
 
@@ -44,19 +43,6 @@ public class WeatherInfoFragment extends Fragment {
             tableBuilder.createWeekWeather();
             isInit = true;
         }
-
         return weatherContainer;
-    }
-
-    static WeatherInfoFragment create(StoreData data){
-        WeatherInfoFragment fragment = new WeatherInfoFragment();
-        Bundle args = new Bundle();
-        args.putSerializable("DATA", data);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public StoreData getData() {
-        return (StoreData) getArguments().getSerializable("DATA");
     }
 }
