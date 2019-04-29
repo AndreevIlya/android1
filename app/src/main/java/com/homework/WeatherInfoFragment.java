@@ -22,7 +22,7 @@ public class WeatherInfoFragment extends Fragment {
         View weatherContainer = inflater.inflate(R.layout.weather_info, container, false);
         data = StoreData.getSavedInstance();
         String city = data.getCity() == null ? getResources().getString(R.string.your_location) : data.getCity();
-        if(isInit){
+        if(isInit && data.getCity() == null && data.getDuration() != null){
             TextView viewTitle = weatherContainer.findViewById(R.id.title);
             viewTitle.setText(String.format(getResources().getString(R.string.title_in), city));
 

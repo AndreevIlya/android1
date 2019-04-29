@@ -1,7 +1,9 @@
 package com.homework;
 
 import android.app.Activity;
+import android.view.Gravity;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -24,6 +26,7 @@ class WeatherBuilder {
 
     private TableRow createWeatherRow(String date){
         TableRow weatherRow = new TableRow(activity);
+        weatherRow.setGravity(Gravity.START);
         WeatherDataRetriever weatherDataRetriever = new WeatherDataRetriever(activity);
         TextView dateTextView = new TextView(activity);
         dateTextView.setText(date);
@@ -35,7 +38,6 @@ class WeatherBuilder {
                 weatherRow.addView(weatherDatum);
             } else {
                 TextView weatherDatum = new TextView(activity,null,R.style.weather_fields);
-                //Log.i("INFO",activity.getResources().getString(dataType));
                 weatherDatum.setText(weatherDataRetriever.getWeatherData(dataType));
                 weatherRow.addView(weatherDatum);
             }
@@ -45,13 +47,18 @@ class WeatherBuilder {
 
     private TableRow createTitleRow(){
         TableRow titleRow = new TableRow(activity);
+        LinearLayout imageWrap = new LinearLayout(activity,null,R.style.image_wrap);
         ImageView dateTextView = new ImageView(activity,null,R.style.images);
         dateTextView.setImageDrawable(activity.getResources().getDrawable(R.drawable.date));
-        titleRow.addView(dateTextView);
+        titleRow.addView(imageWrap);
+        imageWrap.addView(dateTextView);
         for(Integer dataType : dataTypes){
+            LinearLayout imageWrap2 = new LinearLayout(activity,null,R.style.image_wrap);
             ImageView weatherDatum = new ImageView(activity,null,R.style.images);
+            weatherDatum.setScaleType(ImageView.ScaleType.FIT_START);
             weatherDatum.setImageDrawable(activity.getResources().getDrawable(dataType));
-            titleRow.addView(weatherDatum);
+            titleRow.addView(imageWrap2);
+            imageWrap.addView(weatherDatum);
         }
         return titleRow;
     }
