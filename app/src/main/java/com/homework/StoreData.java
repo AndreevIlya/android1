@@ -5,19 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 class StoreData implements Serializable{
-    private String city;
-    private List<Integer> weatherOptions;
-    private String duration;
+    private static String city;
+    private static List<Integer> weatherOptions;
+    private static String duration;
     private static StoreData instance;
 
     private StoreData(String city,List<Integer> weatherOptions,String duration){
-        this.duration = duration;
-        this.city = city;
-        this.weatherOptions = weatherOptions;
+        StoreData.duration = duration;
+        StoreData.city = city;
+        StoreData.weatherOptions = weatherOptions;
     }
 
     static StoreData getInstance(String city,List<Integer> weatherOptions,String duration){
         instance = new StoreData(city,weatherOptions,duration);
+        return instance;
+    }
+
+    static StoreData getSavedInstance(){
+        if(instance == null)
+            instance = new StoreData(null,new ArrayList<Integer>(),null);
         return instance;
     }
 
@@ -33,18 +39,18 @@ class StoreData implements Serializable{
         return duration;
     }
 
-    void setCity(String city){this.city = city;}
+    void setCity(String city){StoreData.city = city;}
 
-    void setDuration(String duration){this.duration = duration;}
+    void setDuration(String duration){StoreData.duration = duration;}
 
     void setWeatherOptions(List<Integer> weatherOptions){
-        this.weatherOptions = weatherOptions;
+        StoreData.weatherOptions = weatherOptions;
     }
 
     boolean areDataEqual(StoreData data){
-        return this.city.equals(data.getCity()) &&
+        return city.equals(data.getCity()) &&
                 weatherOptions.containsAll(data.getWeatherOptions()) &&
                 data.getWeatherOptions().containsAll(weatherOptions) &&
-                this.duration.equals(data.getDuration());
+                duration.equals(data.getDuration());
     }
 }

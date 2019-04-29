@@ -27,12 +27,13 @@ import java.util.Map;
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 public class CityAndOptionsChooser extends Fragment {
-    private static StoreData data = StoreData.getInstance(null,new ArrayList<Integer>(),null);
+    private static StoreData data;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View fragmentContainer = inflater.inflate(R.layout.city_and_options, container, false);
+        data = StoreData.getSavedInstance();
         addWeatherOptions(fragmentContainer);
         RadioButton rbToday = fragmentContainer.findViewById(R.id.today);
         rbToday.setOnClickListener(new View.OnClickListener(){
@@ -85,8 +86,10 @@ public class CityAndOptionsChooser extends Fragment {
                 @Override
                 public void onClick(View view) {
                     if(((CheckBox) view).isChecked()){
+                        Log.i("INFO","+");
                         data.getWeatherOptions().add(view.getId());
                     }else{
+                        Log.i("INFO","-");
                         data.getWeatherOptions().remove(view.getId());
                     }
                 }
@@ -116,9 +119,9 @@ public class CityAndOptionsChooser extends Fragment {
 
     private void showWeatherInCity(){
         if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE){
-            WeatherInfoFragment infoFragment = (WeatherInfoFragment) getFragmentManager().findFragmentById(R.id.weather_info);;
-            Log.i("INFO","5");
-            if(infoFragment != null && !infoFragment.getData().areDataEqual(data)){
+            WeatherInfoFragment infoFragment = (WeatherInfoFragment) getFragmentManager().findFragmentById(R.id.weather_info);
+            Log.i("INFO","5"+infoFragment.getData().getCity());
+            if(!infoFragment.getData().areDataEqual(data)){
                 Log.i("INFO","6");
                 infoFragment = WeatherInfoFragment.create(data);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
