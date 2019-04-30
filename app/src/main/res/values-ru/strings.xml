@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Погодное приложение</string>
     <string name="title">Погода в вашем населенном пункте</string>
+    <string name="your_location">вашем населенном пункте</string>
     <string name="morning">Утро</string>
     <string name="afternoon">День</string>
     <string name="evening">Вечер</string>
@@ -23,7 +24,7 @@
     <string name="today">Сегодня</string>
     <string name="week">Неделя</string>
     <string name="submit">Отправить</string>
-    <string name="title_with_city">"Погода в %s"</string>
+    <string name="title_in">"Погода в %s"</string>
     <string name="date">Дата</string>
     <string name="temperature">Температура</string>
     <string name="precipitations">Осадки</string>

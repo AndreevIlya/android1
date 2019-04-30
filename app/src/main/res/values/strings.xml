@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Homework</string>
     <string name="title">Weather in your location</string>
+    <string name="your_location">your location</string>
     <string name="morning">Morning</string>
     <string name="afternoon">Afternoon</string>
     <string name="evening">Evening</string>
@@ -22,7 +23,7 @@
     <string name="today">Today</string>
     <string name="week">Week</string>
     <string name="submit">Submit</string>
-    <string name="title_with_city">"Weather in %s"</string>
+    <string name="title_in">"Weather in %s"</string>
     <string name="date">"Date"</string>
     <string name="temperature">"Temperature"</string>
     <string name="precipitations">"Precipitations"</string>

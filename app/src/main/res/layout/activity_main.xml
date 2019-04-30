@@ -3,20 +3,21 @@
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
     android:layout_marginStart="4dp"
     android:layout_marginLeft="4dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:text="@string/title"
             android:gravity="center_horizontal"
+            android:text="@string/title"
             android:textSize="18sp"/>
 
         <TableLayout
@@ -27,77 +28,17 @@
             android:layout_marginBottom="10dp">
 
         </TableLayout>
-        <LinearLayout
+
+        <FrameLayout
+            android:id="@+id/weather_options"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/enter_city"
-                android:gravity="start"
-                android:textSize="14sp"/>
-            <EditText
-                android:id="@+id/cityRequested"
-                android:autofillHints="@string/enter_city"
-                android:hint="@string/enter_city"
-                android:inputType="text"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:textSize="14sp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/choose_weather_options"
-                android:gravity="start"
-                android:textSize="14sp"/>
-            <LinearLayout
-                android:id="@+id/weatherOptionsCheckboxes"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <fragment android:name="com.homework.CityAndOptionsChooser"
+                android:id="@+id/citiesAndOptions"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/choose_duration"
-                android:gravity="start"
-                android:textSize="14sp"/>
-            <RadioGroup
-                android:id="@+id/durationRadio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <RadioButton android:id="@+id/today"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/today"
-                    android:onClick="onDurationChosen"/>
-                <RadioButton android:id="@+id/week"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/week"
-                    android:onClick="onDurationChosen"/>
-            </RadioGroup >
-        </LinearLayout>
-        <Button
-            android:id="@+id/submitButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/submit" />
+                android:layout_height="wrap_content" />
+        </FrameLayout>
     </LinearLayout>
 </ScrollView>

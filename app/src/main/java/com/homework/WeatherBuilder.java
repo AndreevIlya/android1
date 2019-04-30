@@ -1,29 +1,32 @@
 package com.homework;
 
 import android.app.Activity;
-import android.text.Html;
-import android.util.Log;
+import android.view.Gravity;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import java.util.Calendar;
 
-class WeatherTableBuilder {
+import java.util.Calendar;
+import java.util.Set;
+
+class WeatherBuilder {
     private Activity activity;
     private Calendar dateToday;
-    private TableLayout table;
-    private Integer[] dataTypes;
+    private Set<Integer> dataTypes;
+    private TableLayout weatherTable;
 
-    WeatherTableBuilder(Activity activity,TableLayout table,Integer[] data){
+    WeatherBuilder(Activity activity, TableLayout table, Set<Integer> data){
         this.activity = activity;
         this.dateToday = Calendar.getInstance();
-        this.table = table;
         this.dataTypes = data;
+        this.weatherTable = table;
     }
 
     private TableRow createWeatherRow(String date){
         TableRow weatherRow = new TableRow(activity);
+        weatherRow.setGravity(Gravity.START);
         WeatherDataRetriever weatherDataRetriever = new WeatherDataRetriever(activity);
         TextView dateTextView = new TextView(activity);
         dateTextView.setText(date);
@@ -35,7 +38,6 @@ class WeatherTableBuilder {
                 weatherRow.addView(weatherDatum);
             } else {
                 TextView weatherDatum = new TextView(activity,null,R.style.weather_fields);
-                Log.i("INFO",activity.getResources().getString(dataType));
                 weatherDatum.setText(weatherDataRetriever.getWeatherData(dataType));
                 weatherRow.addView(weatherDatum);
             }
@@ -45,19 +47,24 @@ class WeatherTableBuilder {
 
     private TableRow createTitleRow(){
         TableRow titleRow = new TableRow(activity);
+        LinearLayout imageWrap = new LinearLayout(activity,null,R.style.image_wrap);
         ImageView dateTextView = new ImageView(activity,null,R.style.images);
         dateTextView.setImageDrawable(activity.getResources().getDrawable(R.drawable.date));
-        titleRow.addView(dateTextView);
+        titleRow.addView(imageWrap);
+        imageWrap.addView(dateTextView);
         for(Integer dataType : dataTypes){
+            LinearLayout imageWrap2 = new LinearLayout(activity,null,R.style.image_wrap);
             ImageView weatherDatum = new ImageView(activity,null,R.style.images);
+            weatherDatum.setScaleType(ImageView.ScaleType.FIT_START);
             weatherDatum.setImageDrawable(activity.getResources().getDrawable(dataType));
-            titleRow.addView(weatherDatum);
+            titleRow.addView(imageWrap2);
+            imageWrap.addView(weatherDatum);
         }
         return titleRow;
     }
 
     void createTodayWeather(){
-        table.addView(createTitleRow());
+        weatherTable.addView(createTitleRow());
         String dateT = dateToday.get(Calendar.DAY_OF_MONTH) +"."+ (dateToday.get(Calendar.MONTH) + 1) + "." + dateToday.get(Calendar.YEAR);
         String[] timesOfDay = {activity.getResources().getString(R.string.morning),
                 activity.getResources().getString(R.string.afternoon),
@@ -65,7 +72,7 @@ class WeatherTableBuilder {
                 activity.getResources().getString(R.string.night)};
         for(String time : timesOfDay){
             String date = dateT + " " + time;
-            table.addView(createWeatherRow(date));
+            weatherTable.addView(createWeatherRow(date));
         }
     }
 
@@ -75,7 +82,7 @@ class WeatherTableBuilder {
         for(int i = 1; i < 7; i++){
             dateToday.add(Calendar.DATE, 1);
             dateT = dateToday.get(Calendar.DAY_OF_MONTH) +"."+ (dateToday.get(Calendar.MONTH) + 1) + "." + dateToday.get(Calendar.YEAR);
-            table.addView(createWeatherRow(dateT));
+            weatherTable.addView(createWeatherRow(dateT));
         }
     }
 }
