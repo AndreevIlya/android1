@@ -3,6 +3,8 @@ package com.homework;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,12 +24,20 @@ public class WeatherInfoFragment extends Fragment {
         View weatherContainer = inflater.inflate(R.layout.weather_info, container, false);
         data = StoreData.getSavedInstance();
         String city = data.getCity() == null ? getResources().getString(R.string.your_location) : data.getCity();
-        if(isInit && data.getCity() == null && data.getDuration() != null){
+        if(isInit && data.getCity() != null && data.getDuration() != null){
             TextView viewTitle = weatherContainer.findViewById(R.id.title);
             viewTitle.setText(String.format(getResources().getString(R.string.title_in), city));
 
             String duration = data.getDuration();
-            Set<Integer> weatherOptions = data.getWeatherOptions();
+            Set<String> weatherOptions = data.getWeatherOptions();
+            RecyclerView recyclerView = weatherContainer.findViewById(R.id.weather_title);
+            recyclerView.setHasFixedSize(true);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            recyclerView.setLayoutManager(layoutManager);
+            CheckedWeatherOptions options = new CheckedWeatherOptions(getResources(),weatherOptions);
+            TitleAdapter adapter = new TitleAdapter(getResources(),options);
+            recyclerView.setAdapter(adapter);
+
             TableLayout table = weatherContainer.findViewById(R.id.weather_table);
             WeatherBuilder tableBuilder = new WeatherBuilder(getActivity(), table, weatherOptions);
             if (duration.equals(getResources().getString(R.string.today))) {
