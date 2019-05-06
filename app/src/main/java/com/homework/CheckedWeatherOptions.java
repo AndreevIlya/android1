@@ -34,10 +34,10 @@ class CheckedWeatherOptions {
         initWeatherOptionsValues();
     }
 
-    public List<WeatherOption<String>> getCheckedOptionsS() {
+    List<WeatherOption<String>> getCheckedOptionsS() {
         return checkedOptionsS;
     }
-    public List<WeatherOption<Drawable>> getCheckedOptionsD() {
+    List<WeatherOption<Drawable>> getCheckedOptionsD() {
         return checkedOptionsD;
     }
 
