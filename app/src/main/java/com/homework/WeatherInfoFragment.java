@@ -15,20 +15,18 @@ import java.util.Set;
 
 public class WeatherInfoFragment extends Fragment {
     private static boolean isInit;
-    static StoreData data;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View weatherContainer = inflater.inflate(R.layout.weather_info, container, false);
         Set<String> weatherOptions;
-        data = StoreData.getSavedInstance();
+        StoreData data = StoreData.getSavedInstance();
         String city = data.getCity() == null ? getResources().getString(R.string.your_location) : data.getCity();
         if(isInit && data.getCity() != null && data.getDuration() != null){
             TextView viewTitle = weatherContainer.findViewById(R.id.title);
             viewTitle.setText(String.format(getResources().getString(R.string.title_in), city));
             weatherOptions = data.getWeatherOptions();
-
         }else{
             TextView viewTitle = weatherContainer.findViewById(R.id.title);
             viewTitle.setText(String.format(getResources().getString(R.string.title_in), city));
@@ -52,7 +50,7 @@ public class WeatherInfoFragment extends Fragment {
         recyclerTable.setHasFixedSize(true);
         recyclerTable.setLayoutManager(layoutManager);
         WeatherAdapter weatherAdapter = new WeatherAdapter(getActivity(),getResources());
-        recyclerTitle.setAdapter(weatherAdapter);
+        recyclerTable.setAdapter(weatherAdapter);
 
         return weatherContainer;
     }

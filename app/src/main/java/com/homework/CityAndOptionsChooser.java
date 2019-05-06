@@ -17,8 +17,8 @@ import android.widget.RadioButton;
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 public class CityAndOptionsChooser extends Fragment {
-    static StoreData data;
-    static WeatherOptionsAdapter adapter;
+    private static StoreData data;
+    private static WeatherOptionsAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -93,7 +93,6 @@ public class CityAndOptionsChooser extends Fragment {
             }
         }else{
             Intent intent = new Intent(getActivity(), SecondaryActivity.class);
-            intent.putExtra("DATA",data);
             startActivity(intent);
         }
         StoreData.setPreviousInstance();

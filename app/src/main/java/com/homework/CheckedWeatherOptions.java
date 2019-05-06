@@ -91,7 +91,7 @@ class CheckedWeatherOptions {
 
     private Map<Integer,WeatherDatumD> initWeatherD(){
         Map<Integer,WeatherDatumD> weather = new HashMap<>();
-        weather.put(R.string.temperature,new WeatherDatumD() {
+        weather.put(R.string.precipitations,new WeatherDatumD() {
             @Override
             public Drawable weatherDatum() {
                 TypedArray pictures = resources.obtainTypedArray(R.array.precipitation_pics);

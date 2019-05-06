@@ -15,12 +15,13 @@
         android:gravity="center_horizontal"
         android:textSize="18sp"/>
 
-    <LinearLayout android:id="@+id/weather_title"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/weather_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:layout_gravity="start">
-    </LinearLayout>
+    </android.support.v7.widget.RecyclerView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/weather_table"

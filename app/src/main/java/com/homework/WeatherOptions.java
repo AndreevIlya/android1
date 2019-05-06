@@ -7,7 +7,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 class WeatherOptions {
     private List<WeatherOption<String>> optionsS;
@@ -77,8 +76,4 @@ class WeatherOptions {
         }
         return options;
     }
-
-
-
-
 }

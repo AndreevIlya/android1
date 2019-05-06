@@ -1,6 +1,5 @@
 package com.homework;
 
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,11 +10,9 @@ import android.widget.TextView;
 
 class WeatherOptionItemAdapter extends RecyclerView.Adapter<WeatherOptionItemAdapter.ViewHolder> {
     private CheckedWeatherOptions options;
-    private Resources resources;
 
-    WeatherOptionItemAdapter(Resources resources, CheckedWeatherOptions options){
+    WeatherOptionItemAdapter(CheckedWeatherOptions options){
         this.options = options;
-        this.resources = resources;
     }
 
 

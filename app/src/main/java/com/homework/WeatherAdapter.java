@@ -74,7 +74,7 @@ class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
         viewHolder.info.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         viewHolder.info.setLayoutManager(layoutManager);
-        WeatherOptionItemAdapter adapter = new WeatherOptionItemAdapter(resources,options);
+        WeatherOptionItemAdapter adapter = new WeatherOptionItemAdapter(options);
         viewHolder.info.setAdapter(adapter);
     }
 
