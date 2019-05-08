@@ -1,27 +1,24 @@
 package com.homework;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 public class CityAndOptionsChooser extends Fragment {
-    static StoreData data;
+    private static StoreData data;
+    private static WeatherOptionsAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -47,6 +44,7 @@ public class CityAndOptionsChooser extends Fragment {
         buttonSubmit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                data.setWeatherOptions(adapter.getCheckedOptions());
                 data.setCity(((EditText) fragmentContainer.findViewById(R.id.cityRequested)).getText().toString());
                 if(!data.getCity().isEmpty() && !data.getDuration().isEmpty() && data.getWeatherOptions().size() != 0){
                     showWeatherInCity();
@@ -67,26 +65,14 @@ public class CityAndOptionsChooser extends Fragment {
     }
 
     private void addWeatherOptions(View cont){
-        Map<Integer,Integer> opt = initOptions();
-        ViewGroup weatherOptionsCheckboxes = cont.findViewById(R.id.weatherOptionsCheckboxes);
-        Integer[] allWeatherOptions = WeatherOptions.getAllWeatherOptions();
-        for(Integer option : allWeatherOptions){
-            CheckBox checkbox = new CheckBox(getActivity());
-            checkbox.setId(option);
-            checkbox.setText(this.getResources().getString(opt.get(option)));
-            checkbox.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View view) {
-                    if(((CheckBox) view).isChecked()){
-                        data.getWeatherOptions().add(view.getId());
-                    }else{
-                        data.getWeatherOptions().remove(view.getId());
-                    }
-                }
-            });
-            weatherOptionsCheckboxes.addView(checkbox);
+        RecyclerView recyclerView = cont.findViewById(R.id.weather_options_checkboxes);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        WeatherOptions options = new WeatherOptions(getResources());
+        adapter = new WeatherOptionsAdapter(getActivity().getResources(),options.getOptionsS(),options.getOptionsD());
+        recyclerView.setAdapter(adapter);
         }
-    }
 
     public void onDurationChosen(View view){
         if(((RadioButton) view).isChecked()){
@@ -94,17 +80,6 @@ public class CityAndOptionsChooser extends Fragment {
                     getResources().getString(R.string.today) :
                     getResources().getString(R.string.week));
         }
-    }
-
-    @SuppressLint("UseSparseArrays")
-    private static Map<Integer,Integer> initOptions(){
-        Map<Integer,Integer> opt = new HashMap<>();
-        opt.put(R.drawable.humidity,R.string.humidity);
-        opt.put(R.drawable.temperature,R.string.temperature);
-        opt.put(R.drawable.weather,R.string.precipitations);
-        opt.put(R.drawable.wind,R.string.wind_speed);
-        opt.put(R.drawable.pressure,R.string.pressure);
-        return opt;
     }
 
     private void showWeatherInCity(){
@@ -118,7 +93,6 @@ public class CityAndOptionsChooser extends Fragment {
             }
         }else{
             Intent intent = new Intent(getActivity(), SecondaryActivity.class);
-            intent.putExtra("DATA",data);
             startActivity(intent);
         }
         StoreData.setPreviousInstance();

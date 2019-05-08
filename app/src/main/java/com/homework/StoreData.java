@@ -8,19 +8,17 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 class StoreData implements Serializable{
     private String city;
-    private Set<Integer> weatherOptions;
+    private Set<String> weatherOptions;
     private String duration;
     private static StoreData instance;
     private static StoreData previousInstance;
 
-    private StoreData(String city,Set<Integer> weatherOptions,String duration){
+    private StoreData(String city,Set<String> weatherOptions,String duration){
         this.duration = duration;
         this.city = city;
         this.weatherOptions = weatherOptions;
@@ -28,7 +26,7 @@ class StoreData implements Serializable{
 
     static StoreData getSavedInstance(){
         if(instance == null)
-            instance = new StoreData(null,new HashSet<Integer>(),null);
+            instance = new StoreData(null,new HashSet<String>(),null);
         return instance;
     }
 
@@ -43,6 +41,7 @@ class StoreData implements Serializable{
             previousInstance = (StoreData) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             Log.e("ERROR","Cloning error in setPreviousInstance");
+            e.printStackTrace();
         }
     }
 
@@ -54,7 +53,7 @@ class StoreData implements Serializable{
         return city;
     }
 
-    Set<Integer> getWeatherOptions() {
+    Set<String> getWeatherOptions() {
         return weatherOptions;
     }
 
@@ -66,7 +65,7 @@ class StoreData implements Serializable{
 
     void setDuration(String duration){this.duration = duration;}
 
-    void setWeatherOptions(Set<Integer> weatherOptions){
+    void setWeatherOptions(Set<String> weatherOptions){
         this.weatherOptions = weatherOptions;
     }
 

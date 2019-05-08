@@ -39,12 +39,12 @@
             android:text="@string/choose_weather_options"
             android:gravity="start"
             android:textSize="14sp"/>
-        <LinearLayout
-            android:id="@+id/weatherOptionsCheckboxes"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/weather_options_checkboxes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-        </LinearLayout>
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

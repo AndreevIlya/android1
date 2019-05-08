@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="optionS_text">
+        <item>@string/temperature</item>
+        <item>@string/humidity</item>
+        <item>@string/pressure</item>
+        <item>@string/wind_speed</item>
+    </array>
+    <array name="optionS_pics">
+        <item>@drawable/temperature</item>
+        <item>@drawable/humidity</item>
+        <item>@drawable/pressure</item>
+        <item>@drawable/wind</item>
+    </array>
+    <array name="optionD_text">
+        <item>@string/precipitations</item>
+    </array>
+    <array name="optionD_pics">
+        <item>@drawable/precipitations</item>
+    </array>
+    <array name="precipitation_pics">
+        <item>@drawable/clear</item>
+        <item>@drawable/cloudy</item>
+        <item>@drawable/heavy_rain</item>
+        <item>@drawable/light_rain</item>
+        <item>@drawable/overcast</item>
+        <item>@drawable/rain</item>
+        <item>@drawable/snow</item>
+    </array>
+</resources>
